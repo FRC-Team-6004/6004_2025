@@ -60,7 +60,10 @@ public class constants {
       public static final InvertedValue INTAKE_INVERSION = InvertedValue.Clockwise_Positive;
       public static final NeutralModeValue INTAKE_NEUTRAL_MODE = NeutralModeValue.Brake;
       public static final double INTAKE_POSITION_STATUS_FRAME = 0.05;
-      public static final double INTAKE_VELOCITY_STATUS_FRAME = 0.01;      
+      public static final double INTAKE_VELOCITY_STATUS_FRAME = 0.01; 
+      
+      public static final double PIVOT_POS_0 = 0;
+      public static final double PIVOT_POS_1 = 0.1;
   
   }
 

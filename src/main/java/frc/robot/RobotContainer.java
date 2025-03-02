@@ -44,6 +44,7 @@ import frc.robot.commands.ElevatorJiggleCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
+import frc.robot.commands.PivotPos0;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -183,7 +184,7 @@ public class RobotContainer {
         // move pivot
         op.leftBumper().whileTrue(new PivotIn(pivotSubsystem));
         op.rightBumper().whileTrue(new PivotOut(pivotSubsystem));
-
+        joystick.leftTrigger(.05).whileTrue(new PivotPos0(pivotSubsystem));
 
         //move Grab!
         op.leftTrigger(.05).whileTrue(new GrabIn(grabSubsystem));
