@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.constants.IntakeConstants;
 
@@ -33,7 +34,8 @@ public class PivotSub extends SubsystemBase {
         intakePivotConfiguration.Slot0.kP = 1.5;
         intakePivotConfiguration.Slot0.kI = 0.0;
         intakePivotConfiguration.Slot0.kD = 0.1;
-        intakePivotConfiguration.Slot0.kG = 0.0;
+        intakePivotConfiguration.Slot0.kG = 1;
+        intakePivotConfiguration.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
 
         // Ensure the motor is in position control mode (using PID)
         intakePivot.setControl(new PositionVoltage(0).withSlot(0));  // This sets the motor controller into position control mode

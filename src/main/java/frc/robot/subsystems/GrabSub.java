@@ -41,7 +41,7 @@ public class GrabSub extends SubsystemBase {
 
     @Override
     public void periodic() {
-        int cantime = 0;
+     /*   int cantime = 0;
        CANrange CANrange = new CANrange(1);
        CANrangeConfiguration CANrangeConfigs = new CANrangeConfiguration();
        CANrangeDistance = CANrange.getDistance().getValueAsDouble();
@@ -52,6 +52,7 @@ public class GrabSub extends SubsystemBase {
         intakeGrab.set(0);
         cantime = 0;
        }
+         */
     }
     /** 
      * This is a method that makes the arm move at your desired speed
