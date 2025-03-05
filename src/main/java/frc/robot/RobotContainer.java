@@ -57,6 +57,7 @@ import frc.robot.subsystems.vision.apriltag.AprilTagPose;
 import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
 import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.DriveToTag;
+import frc.robot.commands.PivotTimed;
 
 
 public class RobotContainer {
@@ -203,6 +204,8 @@ public class RobotContainer {
         op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
         op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
 
+        //Pivot Timed
+        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
