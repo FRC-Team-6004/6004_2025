@@ -204,7 +204,7 @@ public class RobotContainer {
         op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
 
         //Pivot Timed
-        joystick.x().onTrue(new PivotTimed(pivotSubsystem));
+        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
