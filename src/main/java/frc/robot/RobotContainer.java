@@ -59,6 +59,7 @@ import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
+import frc.robot.commands.PivotPos0;
 
 
 public class RobotContainer {
@@ -214,7 +215,7 @@ public class RobotContainer {
         }
       
         //Pivot Timed
-        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
+        joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
