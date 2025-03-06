@@ -6,9 +6,13 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -40,6 +44,7 @@ import frc.robot.commands.ElevatorJiggleCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
+import frc.robot.commands.PivotPos0;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -47,8 +52,13 @@ import frc.robot.commands.ElevatorSetPos2;
 import frc.robot.commands.ElevatorSetPos3;
 import frc.robot.commands.ElevatorSetPos4;
 import frc.robot.commands.ElevatorSetPos5;
-
+import frc.robot.commands.ReefAlignCommand;
+import frc.robot.subsystems.vision.apriltag.AprilTagPose;
+import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
+import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.DriveToTag;
+import frc.robot.commands.PivotTimed;
+import frc.robot.commands.PivotTimedRev;
 
 
 public class RobotContainer {
@@ -59,6 +69,9 @@ public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     
+    @Logged(name = "Vision/Limelight")
+    public final LimelightAprilTagSystem reefCamera;
+    public ReefAlignCommand alignToReef;
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -88,7 +101,13 @@ public class RobotContainer {
         SmartDashboard.putData(elevatorSubsystem);
         SmartDashboard.putData(pivotSubsystem);
         SmartDashboard.putData(grabSubsystem);
-
+        reefCamera = new LimelightAprilTagSystem("limelight", drivetrain);
+        alignToReef =
+                new ReefAlignCommand(
+                        drivetrain,
+                        reefCamera,
+                        joystick::getLeftY,
+                        joystick::getLeftX);
         configureBindings();
     }
 
@@ -100,16 +119,30 @@ public class RobotContainer {
     private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter m_elev = new SlewRateLimiter(4);
 
+    public void updateVision() {
+        Optional<AprilTagPose> aprilTagPoseOpt = reefCamera.getEstimatedPose();
+
+        if (aprilTagPoseOpt.isPresent()) {
+            AprilTagPose pose = aprilTagPoseOpt.get();
+
+            if (pose.getNumTags() > 0) {
+                drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+                drivetrain.addVisionMeasurement(pose.getEstimatedRobotPose(), pose.getTimestamp());
+            }
+        }
+    }
+
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
+        
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
 
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-m_xspeedLimiter.calculate(joystick.getLeftY()) * MaxSpeed * .6) // Drive forward with negative Y (forward)
-                    .withVelocityY(-m_yspeedLimiter.calculate(joystick.getLeftX()) * MaxSpeed * .6) // Drive left with negative X (left)
-                    .withRotationalRate(-m_rotLimiter.calculate(joystick.getRightX()) * MaxAngularRate * .6) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-m_xspeedLimiter.calculate(joystick.getLeftY()) * MaxSpeed * .6 * (joystick.leftTrigger(.05).getAsBoolean() ? 0.5 : 1.0)) // Drive forward with negative Y (forward)
+                    .withVelocityY(-m_yspeedLimiter.calculate(joystick.getLeftX()) * MaxSpeed * .6 * (joystick.leftTrigger(.05).getAsBoolean() ? 0.5 : 1.0)) // Drive left with negative X (left)
+                    .withRotationalRate(-m_rotLimiter.calculate(joystick.getRightX()) * MaxAngularRate * .6 * (joystick.leftTrigger(.05).getAsBoolean() ? 0.5 : 1.0)) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -137,28 +170,51 @@ public class RobotContainer {
                 .withRotationalRate(limelight_aim_proportional()))
         );
         
-        joystick.rightBumper().whileTrue(new DriveToTag());
+        //joystick.rightBumper().whileTrue(new DriveToTag());
+        //joystick.leftTrigger().whileTrue(alignToReef);
+        joystick.leftTrigger().whileTrue(
+            new AlignToTagCommand(
+                drivetrain, 
+                drivetrain.getFrontCamera(), 
+                0, 
+                0, 
+                0, 
+                12
+                )
+            );
 
         // move pivot
-        op.povDown().whileTrue(new PivotIn(pivotSubsystem));
-        op.povUp().whileTrue(new PivotOut(pivotSubsystem));
-
+        op.leftBumper().whileTrue(new PivotIn(pivotSubsystem));
+        op.rightBumper().whileTrue(new PivotOut(pivotSubsystem));
+        joystick.leftTrigger(.05).whileTrue(new PivotPos0(pivotSubsystem));
 
         //move Grab!
-        op.x().whileTrue(new GrabIn(grabSubsystem));
-        op.y().whileTrue(new GrabOut(grabSubsystem));
+        op.leftTrigger(.05).whileTrue(new GrabIn(grabSubsystem));
+        op.rightTrigger(.05).whileTrue(new GrabOut(grabSubsystem));
     
 
 
         // move elevator
-        op.leftTrigger(.05).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
-        op.rightTrigger(.05).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
+        //op.leftTrigger(.05).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
+        //op.rightTrigger(.05).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
 
 
         //PID elevator testing
-        joystick.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
-        joystick.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
-
+        if (op.x().equals(1)) {
+            op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
+            op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
+            op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
+            op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+        } else {
+            op.povDown().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos1(elevatorSubsystem)));
+            op.povUp().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos4(elevatorSubsystem)));
+            op.povLeft().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
+            op.povRight().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
+            op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
+        }
+      
+        //Pivot Timed
+        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
