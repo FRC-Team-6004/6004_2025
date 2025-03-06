@@ -20,7 +20,7 @@ public class constants {
         public static final double LIFT_HOLD_DOWN = (0.5 * 0.05);
         public static final double LIFT_HOLD_UP = (0.5 * 0.05);
 
-        public static final double LIFT_HEIGHT_1 = 0.3;   //set point 1 is Stowed
+        public static final double LIFT_HEIGHT_1 = 0.0;   //set point 1 is Stowed
         public static final double LIFT_HEIGHT_2 = .55;   //set point 2 is L2
         public static final double LIFT_HEIGHT_3 = 1.55;   //set point 3 is L3
         public static final double LIFT_HEIGHT_4 = 3.15;   //set point 4 is Shallow Climb
@@ -52,7 +52,7 @@ public class constants {
       
       
       public static final double Pivot_SPEED= .15;
-      public static final double Pivot_SPEED_HOLD= -.027;
+      public static final double Pivot_SPEED_HOLD= -.017;
 
       public static final double INTAKE_SPEED= .30;
       public static final double INTAKE_SPEED_HOLD= .0;

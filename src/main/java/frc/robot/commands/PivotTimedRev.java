@@ -10,7 +10,7 @@ import frc.robot.subsystems.PivotSub;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class PivotTimed extends Command {
+public class PivotTimedRev extends Command {
   private final PivotSub m_intake;
   Timer m_timer;
   double m_duration;
@@ -22,7 +22,7 @@ public class PivotTimed extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public PivotTimed(PivotSub input) {
+  public PivotTimedRev(PivotSub input) {
     m_intake = input;
     addRequirements(input);
     m_timer = new Timer();
@@ -32,7 +32,7 @@ public class PivotTimed extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_duration = .25;
+    m_duration = 1;
     // Reset the clock
     m_timer.reset();
   }
@@ -40,7 +40,7 @@ public class PivotTimed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.movePivot(IntakeConstants.Pivot_SPEED);
+    m_intake.movePivot(-IntakeConstants.Pivot_SPEED);
     System.out.print("running arm");
     
   }

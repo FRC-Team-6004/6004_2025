@@ -58,6 +58,7 @@ import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSyst
 import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
+import frc.robot.commands.PivotTimedRev;
 
 
 public class RobotContainer {
@@ -199,13 +200,21 @@ public class RobotContainer {
 
 
         //PID elevator testing
-        op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
-        op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
-        op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
-        op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
-
+        if (op.x().equals(1)) {
+            op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
+            op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
+            op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
+            op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+        } else {
+            op.povDown().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos1(elevatorSubsystem)));
+            op.povUp().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos4(elevatorSubsystem)));
+            op.povLeft().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
+            op.povRight().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
+            op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
+        }
+      
         //Pivot Timed
-        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
+        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
