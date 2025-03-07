@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top_Start_Blue-AB"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AB - Top_Station"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top_Station - KL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "KL - Top_Station"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

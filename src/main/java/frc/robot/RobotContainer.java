@@ -45,6 +45,7 @@ import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
 import frc.robot.commands.PivotPos0;
+import frc.robot.commands.PivotPos1;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -201,21 +202,21 @@ public class RobotContainer {
 
 
         //PID elevator testing
-        if (op.x().equals(1)) {
-            op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
-            op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
-            op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
-            op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
-        } else {
-            op.povDown().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos1(elevatorSubsystem)));
-            op.povUp().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos4(elevatorSubsystem)));
-            op.povLeft().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
-            op.povRight().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
-            op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
-        }
+        op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
+        op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
+        op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
+        op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+        //PID Pivot
+        op.povDown().whileTrue(new PivotPos1(pivotSubsystem));
+        op.povUp().whileTrue(new PivotPos1(pivotSubsystem));
+        op.povLeft().whileTrue(new PivotPos1(pivotSubsystem));
+        op.povRight().whileTrue(new PivotPos1(pivotSubsystem));
+        //Release Down
+        op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
       
-        //Pivot Timed
-        joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
+        //Pivot PID commands
+        //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
+        //joystick.a().whileTrue(new PivotPos1(pivotSubsystem));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
