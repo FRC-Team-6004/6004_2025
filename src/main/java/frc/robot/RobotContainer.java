@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -62,6 +63,10 @@ import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
 import frc.robot.commands.PivotPos0;
 
+//auto
+import frc.robot.commands.Autos.GrabInAuto;
+import frc.robot.commands.Autos.GrabOutAuto;
+
 
 public class RobotContainer {
     public final Elevator elevatorSubsystem = new Elevator();
@@ -92,6 +97,10 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public RobotContainer() {
+        // Register Named Commands
+        NamedCommands.registerCommand("GrabIn", new GrabInAuto(grabSubsystem));
+        NamedCommands.registerCommand("GrabOut", new GrabOutAuto(grabSubsystem));
+        //NamedCommands.registerCommand("GrabOut", Commands.print("This is command"));
          //commands for use in auto
         // Register Named Commands
         //NamedCommands.registerCommand("printme", Commands.print("This is command"));
@@ -110,6 +119,9 @@ public class RobotContainer {
                         reefCamera,
                         joystick::getLeftY,
                         joystick::getLeftX);
+        
+        
+
         configureBindings();
     }
 

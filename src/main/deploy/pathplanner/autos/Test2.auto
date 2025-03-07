@@ -11,9 +11,33 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabOut"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "AB - Top_Station"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabIn"
           }
         },
         {
@@ -23,9 +47,33 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabOut"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "KL - Top_Station"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabIn"
           }
         }
       ]
