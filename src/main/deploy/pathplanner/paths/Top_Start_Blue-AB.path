@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.1,
+        "x": 7.575,
         "y": 7.25
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.84842741972291,
+        "x": 8.323427419722911,
         "y": 7.324460433955047
       },
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Top Start - Coral",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
