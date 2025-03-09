@@ -32,7 +32,7 @@ public class GrabInAuto extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_duration = 2;
+    m_duration = .3;
     // Reset the clock
     m_timer.reset();
   }

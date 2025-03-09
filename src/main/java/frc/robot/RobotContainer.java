@@ -132,6 +132,7 @@ public class RobotContainer {
     private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter m_elev = new SlewRateLimiter(4);
+    
 
     public void updateVision() {
         Optional<AprilTagPose> aprilTagPoseOpt = reefCamera.getEstimatedPose();
@@ -218,14 +219,22 @@ public class RobotContainer {
         op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
         op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
         op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
-        //PID Pivot
-        op.povDown().whileTrue(new PivotPos1(pivotSubsystem));
-        op.povUp().whileTrue(new PivotPos1(pivotSubsystem));
-        op.povLeft().whileTrue(new PivotPos1(pivotSubsystem));
-        op.povRight().whileTrue(new PivotPos1(pivotSubsystem));
-        //Release Down
-        op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
-      
+
+
+        op.y().onTrue(new GrabOutAuto(grabSubsystem));
+        op.a().onTrue(new GrabInAuto(grabSubsystem));
+
+        //if (op.x().getAsBoolean()) {
+            //PID Pivot
+            op.povDown().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povUp().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povLeft().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povRight().whileTrue(new PivotPos1(pivotSubsystem));
+
+            //Release Down
+            op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
+        //
+
         //Pivot PID commands
         //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
         //joystick.a().whileTrue(new PivotPos1(pivotSubsystem));

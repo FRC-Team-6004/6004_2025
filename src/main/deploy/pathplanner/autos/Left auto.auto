@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start - GH"
+            "pathName": "Top_Start_Blue-JI"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HG - Top_Station"
+            "pathName": "JI - Top_Station"
           }
         },
         {
@@ -37,7 +37,43 @@
         {
           "type": "named",
           "data": {
-            "name": "GrabIn"
+            "name": "GrabOut"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top_Station - KL"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabOut"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "KL - Top_Station"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabOut"
           }
         },
         {
@@ -56,6 +92,12 @@
           "type": "named",
           "data": {
             "name": "GrabOut"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AB - Top_Station"
           }
         }
       ]
