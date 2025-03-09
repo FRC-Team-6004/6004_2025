@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid start - HG"
+            "pathName": "Top_Start_Blue-AB"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HG - Top_Station"
+            "pathName": "AB - Top_Station"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "GrabOut"
+            "name": "GrabIn"
           }
         },
         {
@@ -57,11 +57,29 @@
           "data": {
             "name": "GrabOut"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "KL - Top_Station"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GrabIn"
+          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Tests",
   "choreoAuto": false
 }

@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top_Start_Blue-JI"
+            "pathName": "Bottom_Start - EF"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "JI - Top_Station"
+            "pathName": "EF - Bottom Station"
           }
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top_Station - KL"
+            "pathName": "Bottom_Station - CD"
           }
         },
         {
@@ -61,7 +61,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "KL - Top_Station"
+            "pathName": "CD - Bottom_Station"
           }
         },
         {
@@ -79,7 +79,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top_Station - AB"
+            "pathName": "Bottom_Station - AB"
           }
         },
         {
@@ -97,7 +97,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AB - Top_Station"
+            "pathName": "AB - Bottom station"
           }
         }
       ]

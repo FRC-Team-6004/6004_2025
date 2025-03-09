@@ -40,7 +40,7 @@ public class GrabOutAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_grab.moveGrab(-IntakeConstants.INTAKE_SPEED);
+    m_grab.moveGrab(-IntakeConstants.INTAKE_SPEED * 0.95);
     System.out.print("outaking");
   }
 

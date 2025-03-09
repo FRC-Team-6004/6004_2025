@@ -46,13 +46,16 @@ public class GrabSub extends SubsystemBase {
        CANrangeConfiguration CANrangeConfigs = new CANrangeConfiguration();
        CANrangeDistance = CANrange.getDistance().getValueAsDouble();
        boolean CANdetects = CANrange.getIsDetected().getValue();
-       if (CANdetects && CANrangeDistance < .025 && CANrangeDistance > .015) {
-        intakeGrab.set(-0.25);
+       if (CANdetects && CANrangeDistance <= .04 && CANrangeDistance >= .023) {
+        intakeGrab.set(-0.05);
        } else {
         intakeGrab.set(0);
         cantime = 0;
+        System.out.println(CANrangeDistance);
        }
-         */
+        
+     */
+         
     }
     /** 
      * This is a method that makes the arm move at your desired speed
