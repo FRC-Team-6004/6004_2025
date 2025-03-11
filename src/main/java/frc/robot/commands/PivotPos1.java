@@ -10,7 +10,7 @@ import frc.robot.subsystems.PivotSub;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class PivotPos0 extends Command {
+public class PivotPos1 extends Command {
   private final PivotSub m_intake;
 
   /**
@@ -21,7 +21,7 @@ public class PivotPos0 extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public PivotPos0(PivotSub input) {
+  public PivotPos1(PivotSub input) {
     m_intake = input;
     addRequirements(input);
   }
@@ -33,7 +33,7 @@ public class PivotPos0 extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setControl(IntakeConstants.PIVOT_POS_0);
+    m_intake.setControl(IntakeConstants.PIVOT_POS_1);
   }
 
   // Called once the command ends or is interrupted.

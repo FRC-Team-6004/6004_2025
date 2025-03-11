@@ -2,17 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Autos;
 
-
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.IntakeConstants;
-import frc.robot.subsystems.PivotSub;
+import frc.robot.subsystems.GrabSub;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class PivotPos0 extends Command {
-  private final PivotSub m_intake;
-
+public class GrabInAuto extends Command {
+  private final GrabSub m_grab;
+  Timer m_timer;
+  double m_duration;
   /**
    * Powers the lift up, when finished passively holds the lift up.
    * 
@@ -21,19 +22,26 @@ public class PivotPos0 extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public PivotPos0(PivotSub input) {
-    m_intake = input;
+  public GrabInAuto(GrabSub input) {
+    m_grab = input;
     addRequirements(input);
+    m_timer = new Timer();
+    m_timer.start();
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_duration = .3;
+    // Reset the clock
+    m_timer.reset();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setControl(IntakeConstants.PIVOT_POS_0);
+    m_grab.moveGrab(IntakeConstants.INTAKE_SPEED);
+    System.out.print("intaking");
   }
 
   // Called once the command ends or is interrupted.
@@ -41,12 +49,12 @@ public class PivotPos0 extends Command {
   // When the next command is caled it will override this command
   @Override
   public void end(boolean interrupted) {
-    m_intake.setBrake();
+    m_grab.moveGrab(IntakeConstants.INTAKE_SPEED_HOLD);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_timer.hasElapsed(m_duration);
   }
 }

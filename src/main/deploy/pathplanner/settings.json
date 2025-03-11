@@ -1,15 +1,27 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.9144,
+  "robotLength": 0.914,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "Bottom start - Coral",
+    "Coral - Top station",
+    "Coral - bottom station",
+    "Mid start - coral",
+    "Bottom Station - Coral",
+    "Top Start - Coral",
+    "Top station - Coral"
+  ],
+  "autoFolders": [
+    "full autos",
+    "Tests",
+    "short autos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 74.088,
+  "robotMass": 46.8,
   "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.048,

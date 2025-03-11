@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -45,6 +46,7 @@ import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
 import frc.robot.commands.PivotPos0;
+import frc.robot.commands.PivotPos1;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -59,6 +61,11 @@ import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
+import frc.robot.commands.PivotPos0;
+
+//auto
+import frc.robot.commands.Autos.GrabInAuto;
+import frc.robot.commands.Autos.GrabOutAuto;
 
 
 public class RobotContainer {
@@ -90,6 +97,10 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public RobotContainer() {
+        // Register Named Commands
+        NamedCommands.registerCommand("GrabIn", new GrabInAuto(grabSubsystem));
+        NamedCommands.registerCommand("GrabOut", new GrabOutAuto(grabSubsystem));
+        //NamedCommands.registerCommand("GrabOut", Commands.print("This is command"));
          //commands for use in auto
         // Register Named Commands
         //NamedCommands.registerCommand("printme", Commands.print("This is command"));
@@ -108,6 +119,9 @@ public class RobotContainer {
                         reefCamera,
                         joystick::getLeftY,
                         joystick::getLeftX);
+        
+        
+
         configureBindings();
     }
 
@@ -118,6 +132,7 @@ public class RobotContainer {
     private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter m_elev = new SlewRateLimiter(4);
+    
 
     public void updateVision() {
         Optional<AprilTagPose> aprilTagPoseOpt = reefCamera.getEstimatedPose();
@@ -200,21 +215,29 @@ public class RobotContainer {
 
 
         //PID elevator testing
-        if (op.x().equals(1)) {
-            op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
-            op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
-            op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
-            op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
-        } else {
-            op.povDown().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos1(elevatorSubsystem)));
-            op.povUp().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos4(elevatorSubsystem)));
-            op.povLeft().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos2(elevatorSubsystem)));
-            op.povRight().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
+        op.povDown().whileTrue(new ElevatorSetPos1(elevatorSubsystem));
+        op.povUp().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
+        op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
+        op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+
+
+        op.y().onTrue(new GrabOutAuto(grabSubsystem));
+        op.a().onTrue(new GrabInAuto(grabSubsystem));
+
+        //if (op.x().getAsBoolean()) {
+            //PID Pivot
+            op.povDown().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povUp().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povLeft().whileTrue(new PivotPos1(pivotSubsystem));
+            op.povRight().whileTrue(new PivotPos1(pivotSubsystem));
+
+            //Release Down
             op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
-        }
-      
-        //Pivot Timed
-        joystick.x().whileTrue(new PivotTimed(pivotSubsystem).andThen(new ElevatorSetPos3(elevatorSubsystem)));
+        //
+
+        //Pivot PID commands
+        //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
+        //joystick.a().whileTrue(new PivotPos1(pivotSubsystem));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
