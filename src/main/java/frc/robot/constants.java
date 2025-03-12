@@ -64,6 +64,9 @@ public class constants {
       
       public static final double PIVOT_POS_0 = 0;
       public static final double PIVOT_POS_1 = 3;
+      public static final double PIVOT_POS_2 = 10;  
+        
+      
   
   }
 

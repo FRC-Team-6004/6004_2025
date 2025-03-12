@@ -47,6 +47,7 @@ import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
 import frc.robot.commands.PivotPos0;
 import frc.robot.commands.PivotPos1;
+import frc.robot.commands.PivotPos2;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -223,6 +224,8 @@ public class RobotContainer {
 
         op.y().onTrue(new GrabOutAuto(grabSubsystem));
         op.a().onTrue(new GrabInAuto(grabSubsystem));
+
+        op.b().whileTrue(new PivotPos2(pivotSubsystem));
 
         //if (op.x().getAsBoolean()) {
             //PID Pivot
