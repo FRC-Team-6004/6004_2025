@@ -64,6 +64,12 @@ import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
 import frc.robot.commands.PivotPos0;
+import frc.robot.subsystems.ClimbSub;
+import frc.robot.commands.ClimbPull;
+import frc.robot.commands.ClimbRelease;
+import frc.robot.subsystems.ClimbV2Sub;
+import frc.robot.commands.ClimbSetPos0;
+import frc.robot.commands.ClimbSetPos1;
 
 //auto
 import frc.robot.commands.Autos.GrabInAuto;
@@ -75,6 +81,8 @@ public class RobotContainer {
     public final Elevator elevatorSubsystem = new Elevator();
     public final PivotSub pivotSubsystem = new PivotSub();
     public final GrabSub grabSubsystem = new GrabSub();
+    public final ClimbSub climbSubsytem = new ClimbSub();
+    public final ClimbV2Sub climbV2Subsytem = new ClimbV2Sub();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -252,6 +260,9 @@ public class RobotContainer {
             op.x().whileTrue(new PivotPos3(pivotSubsystem));
             op.y().whileTrue(new PivotPos3(pivotSubsystem));            
         
+
+        op.b().whileTrue(new ClimbSetPos0(climbV2Subsytem));
+        op.x().whileTrue(new ClimbSetPos1(climbV2Subsytem));
 
         //Pivot PID commands
         //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
