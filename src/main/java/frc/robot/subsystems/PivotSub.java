@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.StatusCode;
@@ -22,6 +24,7 @@ public class PivotSub extends SubsystemBase {
      * This subsystem controls the intake pivot motor.
      */
     public PivotSub() {
+        
         intakePivot = new TalonFX(IntakeConstants.INTAKE_Pivot_ID);
 
         // Create and configure the TalonFX configuration for the pivot motor
