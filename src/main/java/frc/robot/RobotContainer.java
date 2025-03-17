@@ -47,6 +47,8 @@ import frc.robot.commands.PivotIn;
 import frc.robot.commands.PivotOut;
 import frc.robot.commands.PivotPos0;
 import frc.robot.commands.PivotPos1;
+import frc.robot.commands.PivotPos2;
+import frc.robot.commands.PivotPos3;
 import frc.robot.commands.GrabIn;
 import frc.robot.commands.GrabOut;
 import frc.robot.commands.ElevatorSetPos1;
@@ -66,6 +68,7 @@ import frc.robot.commands.PivotPos0;
 //auto
 import frc.robot.commands.Autos.GrabInAuto;
 import frc.robot.commands.Autos.GrabOutAuto;
+
 
 
 public class RobotContainer {
@@ -201,11 +204,11 @@ public class RobotContainer {
         // move pivot
         op.leftBumper().whileTrue(new PivotIn(pivotSubsystem));
         op.rightBumper().whileTrue(new PivotOut(pivotSubsystem));
-        joystick.leftTrigger(.05).whileTrue(new PivotPos0(pivotSubsystem));
+        //joystick.leftTrigger(.05).whileTrue(new PivotPos0(pivotSubsystem));
 
         //move Grab!
-        op.leftTrigger(.05).whileTrue(new GrabIn(grabSubsystem));
-        op.rightTrigger(.05).whileTrue(new GrabOut(grabSubsystem));
+        op.leftTrigger(0.5).whileTrue(new GrabIn(grabSubsystem));
+        op.rightTrigger(0.5).whileTrue(new GrabOut(grabSubsystem));
     
 
 
@@ -220,20 +223,35 @@ public class RobotContainer {
         op.povLeft().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
         op.povRight().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
 
+        op.a().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
+        op.y().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
+        op.x().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+        op.b().whileTrue(new ElevatorSetPos5(elevatorSubsystem));
 
-        op.y().onTrue(new GrabOutAuto(grabSubsystem));
-        op.a().onTrue(new GrabInAuto(grabSubsystem));
+        //op.leftTrigger(0.5).onTrue(new GrabOutAuto(grabSubsystem));
+        //op.rightTrigger(0.5).onTrue(new GrabInAuto(grabSubsystem));
 
-        //if (op.x().getAsBoolean()) {
-            //PID Pivot
+        //op.b().whileTrue(new PivotPos2(pivotSubsystem));
+        //op.x().whileTrue(new PivotPos3(pivotSubsystem));
+
+
+
+
+            // When the left trigger is not pressed, use PivotPos1 for all POV directions
             op.povDown().whileTrue(new PivotPos1(pivotSubsystem));
             op.povUp().whileTrue(new PivotPos1(pivotSubsystem));
             op.povLeft().whileTrue(new PivotPos1(pivotSubsystem));
             op.povRight().whileTrue(new PivotPos1(pivotSubsystem));
-
-            //Release Down
+        
+            // Additionally, trigger PivotTimedRev when any POV direction is not active
             op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
-        //
+
+            // When the left trigger is pressed, use PivotPos3 for all POV directions
+            op.a().whileTrue(new PivotPos3(pivotSubsystem));
+            op.b().whileTrue(new PivotPos3(pivotSubsystem));
+            op.x().whileTrue(new PivotPos3(pivotSubsystem));
+            op.y().whileTrue(new PivotPos3(pivotSubsystem));            
+        
 
         //Pivot PID commands
         //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
