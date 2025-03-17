@@ -80,4 +80,15 @@ public class constants {
         public static final double kRotationalDeadband = kMaxAngularRate * 0.1;
   }
 
+  public static final class ClimbConstants {
+    public static final int LIFT_MAIN = 16;             //PWM
+    public static final int LIFT_CUR_LMT = 50;   //const
+
+    public static final double LIFT_MOTOR_VOLTAGE_COMP = 10;
+    public static final double LIFT_SPEED_DOWN = 0.5;
+    public static final double LIFT_SPEED_UP = -0.5;
+    public static final double LIFT_HOLD_DOWN = 0;
+    public static final double LIFT_HOLD_UP = 0.17;
+  }
+
 }
