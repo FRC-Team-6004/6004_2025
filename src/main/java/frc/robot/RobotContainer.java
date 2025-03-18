@@ -64,9 +64,6 @@ import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
 import frc.robot.commands.PivotPos0;
-import frc.robot.subsystems.ClimbSub;
-import frc.robot.commands.ClimbPull;
-import frc.robot.commands.ClimbRelease;
 import frc.robot.subsystems.ClimbV2Sub;
 import frc.robot.commands.ClimbSetPos0;
 import frc.robot.commands.ClimbSetPos1;
@@ -81,7 +78,6 @@ public class RobotContainer {
     public final Elevator elevatorSubsystem = new Elevator();
     public final PivotSub pivotSubsystem = new PivotSub();
     public final GrabSub grabSubsystem = new GrabSub();
-    public final ClimbSub climbSubsytem = new ClimbSub();
     public final ClimbV2Sub climbV2Subsytem = new ClimbV2Sub();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed

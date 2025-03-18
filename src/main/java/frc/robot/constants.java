@@ -84,7 +84,7 @@ public class constants {
   }
 
   public static final class ClimbConstants {
-    public static final int LIFT_MAIN = 16;             //PWM
+    public static final int LIFT_MAIN = 60;             //PWM
     public static final int LIFT_CUR_LMT = 50;   //const
 
     public static final double LIFT_MOTOR_VOLTAGE_COMP = 10;
