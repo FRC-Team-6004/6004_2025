@@ -88,10 +88,10 @@ public class constants {
     public static final int LIFT_CUR_LMT = 50;   //const
 
     public static final double LIFT_MOTOR_VOLTAGE_COMP = 10;
-    public static final double LIFT_SPEED_DOWN = 0.5;
-    public static final double LIFT_SPEED_UP = -0.5;
+    public static final double LIFT_SPEED_DOWN = 0.2;
+    public static final double LIFT_SPEED_UP = -0.2;
     public static final double LIFT_HOLD_DOWN = 0;
-    public static final double LIFT_HOLD_UP = 0.17;
+    public static final double LIFT_HOLD_UP = 0.1;
 
     public static final double LIFT_HEIGHT_1 = 0.0;   //set point 1 is Stowed
     public static final double LIFT_HEIGHT_2 = .55;   //set point 2 is L2
