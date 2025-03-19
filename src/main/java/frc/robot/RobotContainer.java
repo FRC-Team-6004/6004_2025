@@ -56,9 +56,11 @@ import frc.robot.commands.ElevatorSetPos2;
 import frc.robot.commands.ElevatorSetPos3;
 import frc.robot.commands.ElevatorSetPos4;
 import frc.robot.commands.ElevatorSetPos5;
+import frc.robot.commands.ElevatorSetPos6;
 import frc.robot.commands.ReefAlignCommand;
 import frc.robot.subsystems.vision.apriltag.AprilTagPose;
 import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
+import frc.robot.commands.AlgaeHold;
 import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.Barge;
 import frc.robot.commands.DriveToTag;
@@ -212,7 +214,9 @@ public class RobotContainer {
         //joystick.leftTrigger(.05).whileTrue(new PivotPos0(pivotSubsystem));
 
         //move Grab!
+        op.leftTrigger(0.025).whileTrue(new AlgaeHold(grabSubsystem));
         op.leftTrigger(0.5).whileTrue(new GrabIn(grabSubsystem));
+
         op.rightTrigger(0.5).whileTrue(new GrabOut(grabSubsystem));
     
 
@@ -230,7 +234,7 @@ public class RobotContainer {
 
         op.a().whileTrue(new ElevatorSetPos2(elevatorSubsystem));
         op.y().whileTrue(new ElevatorSetPos4(elevatorSubsystem));
-        op.x().whileTrue(new ElevatorSetPos3(elevatorSubsystem));
+        op.x().whileTrue(new ElevatorSetPos6(elevatorSubsystem));
         op.b().whileTrue(new ElevatorSetPos5(elevatorSubsystem));
 
         //op.leftTrigger(0.5).onTrue(new GrabOutAuto(grabSubsystem));

@@ -65,7 +65,7 @@ public class PivotSub extends SubsystemBase {
         // Set the position control for the intake pivot motor
         intakePivot.setControl(m_positionVoltage.withPosition(pos));
 
-        System.out.println("Moving to position: " + pos);  // Print the target position for debugging
+        //System.out.println("Moving to position: " + pos);  // Print the target position for debugging
     }
 
     public void setBrake() {

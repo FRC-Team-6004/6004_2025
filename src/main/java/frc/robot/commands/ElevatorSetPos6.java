@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class ElevatorSetPos5 extends Command {
+public class ElevatorSetPos6 extends Command {
   private final Elevator m_elevator;
 
   /**
@@ -21,7 +21,7 @@ public class ElevatorSetPos5 extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public ElevatorSetPos5(Elevator lift) {
+  public ElevatorSetPos6(Elevator lift) {
     m_elevator = lift;
     addRequirements(lift);
   }
@@ -36,7 +36,7 @@ public class ElevatorSetPos5 extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevator.setPosition(ElevatorConstants.LIFT_HEIGHT_5);
+    m_elevator.setPosition(ElevatorConstants.LIFT_HEIGHT_6);
     //System.out.print("run pid elev");
   }
 
