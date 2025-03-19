@@ -4,15 +4,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.ElevatorConstants;
-import frc.robot.subsystems.Elevator;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.IntakeConstants;
+import frc.robot.subsystems.GrabSub;
+import frc.robot.subsystems.PivotSub;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class ElevatorSetPos5 extends Command {
-  private final Elevator m_elevator;
+public class Barge extends Command {
+  private final PivotSub m_intake;
+  private final GrabSub m_grab;
 
+  Timer m_timer;
+  double m_duration;
   /**
    * Powers the lift up, when finished passively holds the lift up.
    * 
@@ -21,36 +26,45 @@ public class ElevatorSetPos5 extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public ElevatorSetPos5(Elevator lift) {
-    m_elevator = lift;
-    addRequirements(lift);
+  public Barge(GrabSub input, PivotSub input2) {
+    m_grab = input;
+    m_intake = input2;
+    addRequirements(input, input2);
+    m_timer = new Timer();
+    m_timer.start();
   }
-
-    private final CommandXboxController op = new CommandXboxController(0);
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_duration = .4;
+    // Reset the clock
+    m_timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevator.setPosition(ElevatorConstants.LIFT_HEIGHT_5);
-    //System.out.print("run pid elev");
+    m_intake.setControl(IntakeConstants.PIVOT_POS_1);
+    if (m_timer.get() > .1) {
+        m_grab.moveGrab(-IntakeConstants.INTAKE_SPEED);
+    } else {
+        m_grab.moveGrab(IntakeConstants.INTAKE_SPEED);
+    }
   }
 
   // Called once the command ends or is interrupted.
-  // Here we run a command that will hold the lift up after to ensure the lift does
-  // not drop due to gravity.
+  // Here we run arm down at low speed to ensure it stays down
+  // When the next command is caled it will override this command
   @Override
   public void end(boolean interrupted) {
-    m_elevator.moveElevator(ElevatorConstants.LIFT_HOLD_UP);
+    m_intake.setBrake();
+    m_grab.moveGrab(IntakeConstants.INTAKE_SPEED_HOLD);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_timer.hasElapsed(m_duration);
   }
 }

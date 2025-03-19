@@ -60,6 +60,7 @@ import frc.robot.commands.ReefAlignCommand;
 import frc.robot.subsystems.vision.apriltag.AprilTagPose;
 import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
 import frc.robot.commands.AlignToTagCommand;
+import frc.robot.commands.Barge;
 import frc.robot.commands.DriveToTag;
 import frc.robot.commands.PivotTimed;
 import frc.robot.commands.PivotTimedRev;
@@ -257,8 +258,12 @@ public class RobotContainer {
             op.y().whileTrue(new PivotPos3(pivotSubsystem));            
         
 
-        op.b().whileTrue(new ClimbSetPos0(climbV2Subsytem));
-        op.x().whileTrue(new ClimbSetPos1(climbV2Subsytem));
+        //joystick.povDown().whileTrue(new ClimbSetPos0(climbV2Subsytem));
+        //joystick.povUp().whileTrue(new ClimbSetPos1(climbV2Subsytem));
+        
+        joystick.povUp().onTrue(new Barge(grabSubsystem, pivotSubsystem));
+        //joystick.povUp().onTrue(new GrabInAuto(grabSubsystem));
+
 
         //Pivot PID commands
         //joystick.x().whileTrue(new PivotPos0(pivotSubsystem));
