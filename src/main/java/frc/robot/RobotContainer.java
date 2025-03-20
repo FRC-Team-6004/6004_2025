@@ -70,7 +70,8 @@ import frc.robot.commands.PivotPos0;
 import frc.robot.subsystems.ClimbV2Sub;
 import frc.robot.commands.ClimbSetPos0;
 import frc.robot.commands.ClimbSetPos1;
-
+import frc.robot.commands.Autos.AutoL2;
+import frc.robot.commands.Autos.AutoStow;
 //auto
 import frc.robot.commands.Autos.GrabInAuto;
 import frc.robot.commands.Autos.GrabOutAuto;
@@ -110,6 +111,9 @@ public class RobotContainer {
         // Register Named Commands
         NamedCommands.registerCommand("GrabIn", new GrabInAuto(grabSubsystem));
         NamedCommands.registerCommand("GrabOut", new GrabOutAuto(grabSubsystem));
+        NamedCommands.registerCommand("AutoL2", new AutoL2(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+        NamedCommands.registerCommand("AutoStow", new AutoStow(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+
         //NamedCommands.registerCommand("GrabOut", Commands.print("This is command"));
          //commands for use in auto
         // Register Named Commands
@@ -266,6 +270,7 @@ public class RobotContainer {
         //joystick.povUp().whileTrue(new ClimbSetPos1(climbV2Subsytem));
         
         joystick.povUp().onTrue(new Barge(grabSubsystem, pivotSubsystem));
+        joystick.povDown().onTrue(new AutoL2(grabSubsystem, pivotSubsystem, elevatorSubsystem));
         //joystick.povUp().onTrue(new GrabInAuto(grabSubsystem));
 
 

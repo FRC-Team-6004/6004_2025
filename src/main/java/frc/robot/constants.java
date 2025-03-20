@@ -21,8 +21,8 @@ public class constants {
         public static final double LIFT_HOLD_UP = (0.5 * 0.05);
 
         public static final double LIFT_HEIGHT_1 = 0.0;   //set point 1 is Stowed
-        public static final double LIFT_HEIGHT_2 = .55;   //set point 2 is L2
-        public static final double LIFT_HEIGHT_3 = 1.55;   //set point 3 is L3 / Shallow Climb
+        public static final double LIFT_HEIGHT_2 = .52;   //set point 2 is L2
+        public static final double LIFT_HEIGHT_3 = 1.;   //set point 3 is L3
         public static final double LIFT_HEIGHT_4 = 3.15;   //set point 4 is L4
         public static final double LIFT_HEIGHT_5 = 2;   //L3/4 Algae
         public static final double LIFT_HEIGHT_6 = 1.15;   //L2/3 Algae
