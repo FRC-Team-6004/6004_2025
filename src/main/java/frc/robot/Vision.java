@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+/* 
  package frc.robot;
 
  import static frc.robot.constants.Vision.*;
@@ -93,6 +93,7 @@
       * @return An {@link EstimatedRobotPose} with an estimated pose, estimate timestamp, and targets
       *     used for estimation.
       */
+      /* 
      public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
          Optional<EstimatedRobotPose> visionEst = Optional.empty();
          for (var change : camera.getAllUnreadResults()) {
@@ -120,6 +121,7 @@
       * @param estimatedPose The estimated pose to guess standard deviations for.
       * @param targets All targets in this camera frame
       */
+      /* 
      private void updateEstimationStdDevs(
              Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
          if (estimatedPose.isEmpty()) {
@@ -168,6 +170,7 @@
       * edu.wpi.first.math.estimator.SwerveDrivePoseEstimator SwerveDrivePoseEstimator}. This should
       * only be used when there are targets visible.
       */
+      /* 
      public Matrix<N3, N1> getEstimationStdDevs() {
          return curStdDevs;
      }
@@ -179,13 +182,16 @@
      }
  
      /** Reset pose history of the robot in the vision system simulation. */
+     /* 
      public void resetSimPose(Pose2d pose) {
          if (Robot.isSimulation()) visionSim.resetRobotPose(pose);
      }
  
      /** A Field2d for visualizing our robot and objects on the field. */
+     /* 
      public Field2d getSimDebugField() {
          if (!Robot.isSimulation()) return null;
          return visionSim.getDebugField();
      }
  }
+ */

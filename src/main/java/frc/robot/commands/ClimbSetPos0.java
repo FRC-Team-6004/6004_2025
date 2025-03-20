@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import frc.robot.constants.ClimbConstants;
 import frc.robot.subsystems.ClimbV2Sub;
-import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -45,7 +44,7 @@ public class ClimbSetPos0 extends Command {
   // not drop due to gravity.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.moveElevator(ClimbConstants.LIFT_HOLD_UP);
+    m_elevator.moveClimb(ClimbConstants.LIFT_HOLD_UP);
   }
 
   // Returns true when the command should end.

@@ -74,7 +74,7 @@ public class constants {
       public static final double PIVOT_POS_0 = 0;
       public static final double PIVOT_POS_1 = 3;
       public static final double PIVOT_POS_2 = 5;  
-      public static final double PIVOT_POS_3 = 15;  
+      public static final double PIVOT_POS_3 = 10;  
       
   
   }
@@ -100,10 +100,10 @@ public class constants {
     public static final double LIFT_SPEED_DOWN = 0.2;
     public static final double LIFT_SPEED_UP = -0.2;
     public static final double LIFT_HOLD_DOWN = 0;
-    public static final double LIFT_HOLD_UP = 0.1;
+    public static final double LIFT_HOLD_UP = 0;
 
     public static final double LIFT_HEIGHT_1 = 0.0;   //set point 1 is Stowed
-    public static final double LIFT_HEIGHT_2 = .55;   //set point 2 is L2
+    public static final double LIFT_HEIGHT_2 = .85;   //set point 2 is L2
     public static final double LIFT_HEIGHT_3 = 1.55;   //set point 3 is L3
     public static final double LIFT_HEIGHT_4 = 3.15;   //set point 4 is Shallow Climb
     public static final double LIFT_HEIGHT_5 = 0;   //set point 5 is max
@@ -117,7 +117,7 @@ public class constants {
     public static final double   kMaxElevatorHeightMeters = Units.inchesToMeters(30);
   }
 
-  public static class Vision {
+  /*public static class Vision {
     public static final String kCameraName = "YOUR CAMERA NAME";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     public static final Transform3d kRobotToCam =
@@ -131,6 +131,6 @@ public class constants {
     // (Fake values. Experiment and determine estimation noise on an actual robot.)
     public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
     public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
-}
+} */
 
 }

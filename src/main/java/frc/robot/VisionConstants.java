@@ -12,10 +12,10 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
-    public static final String kaprilCamRightName = "AprilCamRight"; // Arducam_OV2311USB_Camera (1) Red
-    public static final String kaprilCamLeftName = "AprilCamLeft"; // Arducam_OV2311USB_Camera (1) Blue
+    public static final String kaprilCamRightName = "Fx Arducam 2"; // Arducam_OV2311USB_Camera (1) Red
+    public static final String kaprilCamLeftName = "Fx Arducam 1"; // Arducam_OV2311USB_Camera (1) Blue
 
-    public static final String kobjectCamName = "ObjectCam"; // Arducam_OV2311USB_Camera
+    //public static final String kobjectCamName = "ObjectCam"; // Arducam_OV2311USB_Camera
 
     // Cam mounted 6 in left, 10.647 in forward, and 8 in up @ 0.9731071 deg pitch and 116.3762958 yaw
     public static final Transform3d kRobotToLeftAprilCam =

@@ -44,7 +44,7 @@ public class ClimbSetPos1 extends Command {
   // not drop due to gravity.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.moveElevator(ClimbConstants.LIFT_HOLD_UP);
+    m_elevator.moveClimb(ClimbConstants.LIFT_HOLD_UP);
   }
 
   // Returns true when the command should end.

@@ -16,7 +16,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Vision vision;
+  //private Vision vision;
   private CommandSwerveDrivetrain drivetrain;
       private final CommandXboxController op = new CommandXboxController(1);
 
@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
     // Correct pose estimate with vision measurements
-    var visionEst = vision.getEstimatedGlobalPose();
+    /*var visionEst = vision.getEstimatedGlobalPose();
     visionEst.ifPresent(
             est -> {
                 // Change our trust in the measurement based on the tags we can see
@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 
                 drivetrain.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-            });
+            }); */
   }
 
   @Override

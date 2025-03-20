@@ -17,13 +17,13 @@ import frc.robot.constants.ClimbConstants;
 
 public class ClimbV2Sub extends SubsystemBase {
 
-    private final SparkMax elevatorMotor;
+    private final SparkMax climbMotor;
     
     private final RelativeEncoder encoder;  
     private final PIDController pid;  
 
     private final double COUNTS_PER_INCH = 42.0; // Needs to be measured, not publically available
-    private final double GRAVITY_COMPENSATION = (0.5 * 0.05); // edit if needed, should be good
+    private final double GRAVITY_COMPENSATION = 0; // edit if needed, should be good
 
     /**
      * This subsytem that controls the arm.
@@ -31,12 +31,12 @@ public class ClimbV2Sub extends SubsystemBase {
     public ClimbV2Sub () {
 
         // Set up the arm motor as a brushed motor
-        elevatorMotor = new SparkMax(ClimbConstants.LIFT_MAIN, MotorType.kBrushless);
+        climbMotor = new SparkMax(ClimbConstants.LIFT_MAIN, MotorType.kBrushless);
 
         // Set can timeout. Because this project only sets parameters once on
         // construction, the timeout can be long without blocking robot operation. Code
         // which sets or gets parameters during operation may need a shorter timeout.
-        elevatorMotor.setCANTimeout(250);
+        climbMotor.setCANTimeout(250);
 
         // Create and apply configuration for arm motor. Voltage compensation helps
         // the arm behave the same as the battery
@@ -46,11 +46,11 @@ public class ClimbV2Sub extends SubsystemBase {
         elevatorConfig.voltageCompensation(10);
         elevatorConfig.smartCurrentLimit(ClimbConstants.LIFT_CUR_LMT);
         elevatorConfig.idleMode(IdleMode.kBrake);
-        elevatorMotor.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        climbMotor.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         // PID values need tuning for your specific elevator
-        encoder = elevatorMotor.getEncoder();
-        pid = new PIDController(1.75, 0, 0);
+        encoder = climbMotor.getEncoder();
+        pid = new PIDController(3, 0, 0);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class ClimbV2Sub extends SubsystemBase {
      * 
      * @param speed motor speed from -1.0 to 1, with 0 stopping it
      */
-    public void moveElevator(double speed){
-        elevatorMotor.set(speed);
+    public void moveClimb(double speed){
+        climbMotor.set(speed);
     }
     /**
    * A trigger for when the height is at an acceptable tolerance.
@@ -79,7 +79,7 @@ public class ClimbV2Sub extends SubsystemBase {
     }
 
     // Returns elevator height in inches
-    public double getHeight() {
+    public double getPos() {
         return encoder.getPosition() / COUNTS_PER_INCH;
     }
 
@@ -91,8 +91,8 @@ public class ClimbV2Sub extends SubsystemBase {
             (2 * Math.PI * ClimbConstants.kElevatorDrumRadius);
     }
 
-    public void setPosition(double targetHeight) {
-        double pidOutput = pid.calculate(getHeight(), targetHeight);
+    public void setPosition(double targetPos) {
+        double pidOutput = pid.calculate(getPos(), targetPos);
         
         // Add gravity compensation
         // The sign is positive because we need to work against gravity
@@ -102,7 +102,7 @@ public class ClimbV2Sub extends SubsystemBase {
         // Clamp the output to valid range
         motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
         
-        elevatorMotor.set(motorOutput);  
+        climbMotor.set(motorOutput);  
     }
 
 }

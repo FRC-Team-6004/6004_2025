@@ -3,45 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2471318493150685,
-        "y": 7.6687285958904114
+        "x": 8.02425,
+        "y": 6.150499999999999
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9648338117038697,
-        "y": 6.01730582825193
-      },
-      "isLocked": false,
-      "linkedName": "Top Station"
-    },
-    {
-      "anchor": {
-        "x": 3.2335387323943654,
-        "y": 2.1825704225352105
-      },
-      "prevControl": {
-        "x": 2.429518651416024,
-        "y": 2.5838298706246823
-      },
-      "nextControl": {
-        "x": 3.939813553280611,
-        "y": 1.8300923544707142
+        "x": 7.798826864302954,
+        "y": 6.042405551055982
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.138784246575342,
-        "y": 2.8529965753424653
+        "x": 6.95175,
+        "y": 6.150499999999999
       },
       "prevControl": {
-        "x": 4.708136367056283,
-        "y": 2.803212199174285
+        "x": 7.02527146220938,
+        "y": 5.911555247819511
+      },
+      "nextControl": {
+        "x": 6.87375,
+        "y": 6.403999999999999
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.32225,
+        "y": 7.2327499999999985
+      },
+      "prevControl": {
+        "x": 8.020484793747091,
+        "y": 7.065173649500696
+      },
+      "nextControl": {
+        "x": 6.8347500000000005,
+        "y": 7.349749999999999
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.056,
+        "y": 7.4765
+      },
+      "prevControl": {
+        "x": 4.895042050045636,
+        "y": 7.509273030513524
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EF"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -58,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.96375653207349
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Top station - Coral",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.28004568770971
+    "rotation": 177.31622484053102
   },
   "useDefaultConstraints": true
 }

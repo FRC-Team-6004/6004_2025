@@ -4,44 +4,28 @@
     {
       "anchor": {
         "x": 7.575,
-        "y": 7.25
+        "y": 0.75
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7929956740737145,
-        "y": 7.127615825838686
+        "x": 6.67875,
+        "y": 0.8172499999999991
       },
       "isLocked": false,
-      "linkedName": "Start top blue"
+      "linkedName": "Right start"
     },
     {
       "anchor": {
-        "x": 5.409246575342466,
-        "y": 2.041609589041096
+        "x": 3.81225,
+        "y": 3.1572499999999994
       },
       "prevControl": {
-        "x": 6.241415327650628,
-        "y": 2.4935063133105455
-      },
-      "nextControl": {
-        "x": 4.661513654614696,
-        "y": 1.6355644731098753
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.8766267123287674,
-        "y": 2.8529965753424653
-      },
-      "prevControl": {
-        "x": 3.68807111115746,
-        "y": 3.017151335452938
+        "x": 4.02675,
+        "y": 2.611249999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CD"
+      "linkedName": "D"
     }
   ],
   "rotationTargets": [],
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.93141717813753
+    "rotation": 60.36161631184867
   },
   "reversed": false,
-  "folder": "Top Start - Coral",
+  "folder": "Start right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -179.11093938823203
   },
   "useDefaultConstraints": true
 }

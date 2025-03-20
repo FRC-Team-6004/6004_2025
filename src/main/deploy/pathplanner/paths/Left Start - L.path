@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.335346564083174,
-        "y": 7.178822541115465
+        "x": 8.575,
+        "y": 7.25
       },
       "isLocked": false,
-      "linkedName": "Start top blue"
+      "linkedName": "Start Left"
     },
     {
       "anchor": {
-        "x": 5.123758561643836,
-        "y": 5.114362157534247
+        "x": 3.79275,
+        "y": 4.9025
       },
       "prevControl": {
-        "x": 4.7836177165734135,
-        "y": 5.015154411055374
+        "x": 2.79275,
+        "y": 4.9025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "JI"
+      "linkedName": "L"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.80144597613679
+    "rotation": -59.5344550805401
   },
   "reversed": false,
-  "folder": "Top Start - Coral",
+  "folder": "Start left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

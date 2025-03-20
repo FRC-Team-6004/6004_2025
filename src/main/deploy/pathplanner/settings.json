@@ -3,19 +3,12 @@
   "robotLength": 0.914,
   "holonomicMode": true,
   "pathFolders": [
-    "Bottom start - Coral",
-    "Coral - Top station",
-    "Coral - bottom station",
-    "Mid start - coral",
-    "Bottom Station - Coral",
-    "Top Start - Coral",
-    "Top station - Coral"
+    "Coral - Right Station",
+    "Start left",
+    "Start mid",
+    "Start right"
   ],
-  "autoFolders": [
-    "full autos",
-    "Tests",
-    "short autos"
-  ],
+  "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

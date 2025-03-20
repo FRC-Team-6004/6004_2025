@@ -58,8 +58,8 @@ import frc.robot.commands.ElevatorSetPos4;
 import frc.robot.commands.ElevatorSetPos5;
 import frc.robot.commands.ElevatorSetPos6;
 import frc.robot.commands.ReefAlignCommand;
-import frc.robot.subsystems.vision.apriltag.AprilTagPose;
-import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
+//import frc.robot.subsystems.vision.apriltag.AprilTagPose;
+//import frc.robot.subsystems.vision.apriltag.impl.limelight.LimelightAprilTagSystem;
 import frc.robot.commands.AlgaeHold;
 import frc.robot.commands.AlignToTagCommand;
 import frc.robot.commands.Barge;
@@ -71,6 +71,8 @@ import frc.robot.subsystems.ClimbV2Sub;
 import frc.robot.commands.ClimbSetPos0;
 import frc.robot.commands.ClimbSetPos1;
 import frc.robot.commands.Autos.AutoL2;
+import frc.robot.commands.Autos.AutoL4Algae;
+import frc.robot.commands.Autos.AutoLowerAlgae;
 import frc.robot.commands.Autos.AutoStow;
 //auto
 import frc.robot.commands.Autos.GrabInAuto;
@@ -87,9 +89,9 @@ public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     
-    @Logged(name = "Vision/Limelight")
-    public final LimelightAprilTagSystem reefCamera;
-    public ReefAlignCommand alignToReef;
+    //@Logged(name = "Vision/Limelight")
+    //public final LimelightAprilTagSystem reefCamera;
+    //public ReefAlignCommand alignToReef;
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -113,6 +115,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("GrabOut", new GrabOutAuto(grabSubsystem));
         NamedCommands.registerCommand("AutoL2", new AutoL2(grabSubsystem, pivotSubsystem, elevatorSubsystem));
         NamedCommands.registerCommand("AutoStow", new AutoStow(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+        NamedCommands.registerCommand("Barge", new Barge(grabSubsystem, pivotSubsystem));
+        NamedCommands.registerCommand("AlgaeL4", new AutoL4Algae(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+        NamedCommands.registerCommand("AlgaeLow", new AutoLowerAlgae(grabSubsystem, pivotSubsystem, elevatorSubsystem));
 
         //NamedCommands.registerCommand("GrabOut", Commands.print("This is command"));
          //commands for use in auto
@@ -126,13 +131,13 @@ public class RobotContainer {
         SmartDashboard.putData(elevatorSubsystem);
         SmartDashboard.putData(pivotSubsystem);
         SmartDashboard.putData(grabSubsystem);
-        reefCamera = new LimelightAprilTagSystem("limelight", drivetrain);
+        /*reefCamera = new LimelightAprilTagSystem("limelight", drivetrain);
         alignToReef =
                 new ReefAlignCommand(
                         drivetrain,
                         reefCamera,
                         joystick::getLeftY,
-                        joystick::getLeftX);
+                        joystick::getLeftX); */
         
         
 
@@ -148,7 +153,7 @@ public class RobotContainer {
     private final SlewRateLimiter m_elev = new SlewRateLimiter(4);
     
 
-    public void updateVision() {
+    /*public void updateVision() {
         Optional<AprilTagPose> aprilTagPoseOpt = reefCamera.getEstimatedPose();
 
         if (aprilTagPoseOpt.isPresent()) {
@@ -159,7 +164,7 @@ public class RobotContainer {
                 drivetrain.addVisionMeasurement(pose.getEstimatedRobotPose(), pose.getTimestamp());
             }
         }
-    }
+    } */
 
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
@@ -270,8 +275,11 @@ public class RobotContainer {
         //joystick.povUp().whileTrue(new ClimbSetPos1(climbV2Subsytem));
         
         joystick.povUp().onTrue(new Barge(grabSubsystem, pivotSubsystem));
-        joystick.povDown().onTrue(new AutoL2(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+        joystick.povDown().onTrue(new AutoLowerAlgae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new AutoL4Algae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new Barge(grabSubsystem, pivotSubsystem));
         //joystick.povUp().onTrue(new GrabInAuto(grabSubsystem));
+
+        joystick.povLeft().whileTrue(new ClimbSetPos0(climbV2Subsytem));
+        joystick.povRight().whileTrue(new ClimbSetPos1(climbV2Subsytem));
 
 
         //Pivot PID commands

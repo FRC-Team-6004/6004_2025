@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid start - HG"
+            "pathName": "Push"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "short autos",
+  "folder": null,
   "choreoAuto": false
 }
