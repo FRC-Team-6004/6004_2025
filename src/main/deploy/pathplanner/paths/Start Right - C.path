@@ -20,12 +20,12 @@
         "y": 3.1572499999999994
       },
       "prevControl": {
-        "x": 3.8025,
+        "x": 3.8025000000000007,
         "y": 2.5819999999999994
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "D"
+      "linkedName": "C"
     }
   ],
   "rotationTargets": [],

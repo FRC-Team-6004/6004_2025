@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
@@ -14,11 +15,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.ClimbConstants;
+import frc.robot.constants.ElevatorConstants;
 
 public class ClimbV2Sub extends SubsystemBase {
 
     private final SparkMax climbMotor;
-    
+    private final SparkMax climbMotorFollow;
+
     private final RelativeEncoder encoder;  
     private final PIDController pid;  
 
@@ -32,11 +35,13 @@ public class ClimbV2Sub extends SubsystemBase {
 
         // Set up the arm motor as a brushed motor
         climbMotor = new SparkMax(ClimbConstants.LIFT_MAIN, MotorType.kBrushless);
+        climbMotorFollow = new SparkMax(ClimbConstants.LIFT_FOLLOW, MotorType.kBrushless);
 
         // Set can timeout. Because this project only sets parameters once on
         // construction, the timeout can be long without blocking robot operation. Code
         // which sets or gets parameters during operation may need a shorter timeout.
         climbMotor.setCANTimeout(250);
+        climbMotorFollow.setCANTimeout(250);
 
         // Create and apply configuration for arm motor. Voltage compensation helps
         // the arm behave the same as the battery
@@ -47,6 +52,7 @@ public class ClimbV2Sub extends SubsystemBase {
         elevatorConfig.smartCurrentLimit(ClimbConstants.LIFT_CUR_LMT);
         elevatorConfig.idleMode(IdleMode.kBrake);
         climbMotor.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        climbMotorFollow.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         // PID values need tuning for your specific elevator
         encoder = climbMotor.getEncoder();
@@ -64,6 +70,7 @@ public class ClimbV2Sub extends SubsystemBase {
      */
     public void moveClimb(double speed){
         climbMotor.set(speed);
+        climbMotorFollow.set(-speed);
     }
     /**
    * A trigger for when the height is at an acceptable tolerance.
@@ -103,6 +110,7 @@ public class ClimbV2Sub extends SubsystemBase {
         motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
         
         climbMotor.set(motorOutput);  
+        climbMotorFollow.set(-motorOutput); 
     }
 
 }

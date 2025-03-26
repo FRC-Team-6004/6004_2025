@@ -2,19 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.IntakeConstants;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.GrabSub;
 import frc.robot.subsystems.PivotSub;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
 /** An liftUpCommand that uses an lift subsystem. */
-public class Barge extends Command {
+public class AutoL3 extends Command {
   private final PivotSub m_intake;
   private final GrabSub m_grab;
+  private final Elevator m_elevator;
 
   Timer m_timer;
   double m_duration;
@@ -26,10 +29,11 @@ public class Barge extends Command {
    *
    * @param lift The subsystem used by this command.
    */
-  public Barge(GrabSub input, PivotSub input2) {
+  public AutoL3(GrabSub input, PivotSub input2, Elevator lift) {
+    m_elevator = lift;
     m_grab = input;
     m_intake = input2;
-    addRequirements(input, input2);
+    addRequirements(input, input2, lift);
     m_timer = new Timer();
     m_timer.start();
   }
@@ -37,7 +41,7 @@ public class Barge extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_duration = .4;
+    m_duration = 1;
     // Reset the clock
     m_timer.reset();
   }
@@ -45,17 +49,12 @@ public class Barge extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > .1) {
-      m_intake.setControl(IntakeConstants.PIVOT_POS_1);
-      if (m_timer.get() > .2) {
-          m_grab.moveGrab(-IntakeConstants.INTAKE_SPEED);
-      } else {
-          m_grab.moveGrab(IntakeConstants.INTAKE_SPEED);
-      }
-  } else {
-    m_intake.setControl(IntakeConstants.PIVOT_POS_3);
-    m_grab.moveGrab(IntakeConstants.INTAKE_SPEED);
-  }
+    m_elevator.setPosition(ElevatorConstants.LIFT_HEIGHT_3);
+    m_intake.setControl(IntakeConstants.PIVOT_POS_1);
+    
+    if (m_timer.get() > 0.5) {
+    m_grab.moveGrab(-IntakeConstants.INTAKE_SPEED);
+    }
 
   }
 
@@ -66,6 +65,7 @@ public class Barge extends Command {
   public void end(boolean interrupted) {
     m_intake.setBrake();
     m_grab.moveGrab(IntakeConstants.INTAKE_SPEED_HOLD);
+    m_elevator.moveElevator(ElevatorConstants.LIFT_HOLD_UP);
   }
 
   // Returns true when the command should end.

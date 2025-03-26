@@ -3,7 +3,10 @@
   "robotLength": 0.914,
   "holonomicMode": true,
   "pathFolders": [
+    "Coral - Left Station",
     "Coral - Right Station",
+    "Left Station - Coral",
+    "Right Sation - Coral",
     "Start left",
     "Start mid",
     "Start right"

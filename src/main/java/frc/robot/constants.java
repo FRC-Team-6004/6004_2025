@@ -74,7 +74,7 @@ public class constants {
       public static final double PIVOT_POS_0 = 0;
       public static final double PIVOT_POS_1 = 3;
       public static final double PIVOT_POS_2 = 5;  
-      public static final double PIVOT_POS_3 = 10;  
+      public static final double PIVOT_POS_3 = 15;  
       
   
   }
@@ -94,6 +94,7 @@ public class constants {
 
   public static final class ClimbConstants {
     public static final int LIFT_MAIN = 60;             //PWM
+    public static final int LIFT_FOLLOW = 59;             //PWM
     public static final int LIFT_CUR_LMT = 50;   //const
 
     public static final double LIFT_MOTOR_VOLTAGE_COMP = 10;
@@ -103,7 +104,7 @@ public class constants {
     public static final double LIFT_HOLD_UP = 0;
 
     public static final double LIFT_HEIGHT_1 = 0.0;   //set point 1 is Stowed
-    public static final double LIFT_HEIGHT_2 = .85;   //set point 2 is L2
+    public static final double LIFT_HEIGHT_2 = 1.5;   //set point 2 is L2
     public static final double LIFT_HEIGHT_3 = 1.55;   //set point 3 is L3
     public static final double LIFT_HEIGHT_4 = 3.15;   //set point 4 is Shallow Climb
     public static final double LIFT_HEIGHT_5 = 0;   //set point 5 is max

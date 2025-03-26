@@ -71,6 +71,7 @@ import frc.robot.subsystems.ClimbV2Sub;
 import frc.robot.commands.ClimbSetPos0;
 import frc.robot.commands.ClimbSetPos1;
 import frc.robot.commands.Autos.AutoL2;
+import frc.robot.commands.Autos.AutoL3;
 import frc.robot.commands.Autos.AutoL4Algae;
 import frc.robot.commands.Autos.AutoLowerAlgae;
 import frc.robot.commands.Autos.AutoStow;
@@ -118,6 +119,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Barge", new Barge(grabSubsystem, pivotSubsystem));
         NamedCommands.registerCommand("AlgaeL4", new AutoL4Algae(grabSubsystem, pivotSubsystem, elevatorSubsystem));
         NamedCommands.registerCommand("AlgaeLow", new AutoLowerAlgae(grabSubsystem, pivotSubsystem, elevatorSubsystem));
+        NamedCommands.registerCommand("AutoL3", new AutoL3(grabSubsystem, pivotSubsystem, elevatorSubsystem));
 
         //NamedCommands.registerCommand("GrabOut", Commands.print("This is command"));
          //commands for use in auto
@@ -265,6 +267,11 @@ public class RobotContainer {
             op.povDown().onFalse(new PivotTimedRev(pivotSubsystem));
 
             // When the left trigger is pressed, use PivotPos3 for all POV directions
+            op.a().whileTrue(new GrabIn(grabSubsystem));
+            op.b().whileTrue(new GrabIn(grabSubsystem));
+            op.x().whileTrue(new GrabIn(grabSubsystem));
+            op.y().whileTrue(new GrabIn(grabSubsystem));
+
             op.a().whileTrue(new PivotPos3(pivotSubsystem));
             op.b().whileTrue(new PivotPos3(pivotSubsystem));
             op.x().whileTrue(new PivotPos3(pivotSubsystem));
@@ -275,11 +282,11 @@ public class RobotContainer {
         //joystick.povUp().whileTrue(new ClimbSetPos1(climbV2Subsytem));
         
         joystick.povUp().onTrue(new Barge(grabSubsystem, pivotSubsystem));
-        joystick.povDown().onTrue(new AutoLowerAlgae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new AutoL4Algae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new Barge(grabSubsystem, pivotSubsystem));
+        //joystick.povDown().onTrue(new AutoLowerAlgae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new AutoL4Algae(grabSubsystem, pivotSubsystem, elevatorSubsystem)).onTrue(new Barge(grabSubsystem, pivotSubsystem));
         //joystick.povUp().onTrue(new GrabInAuto(grabSubsystem));
 
-        joystick.povLeft().whileTrue(new ClimbSetPos0(climbV2Subsytem));
-        joystick.povRight().whileTrue(new ClimbSetPos1(climbV2Subsytem));
+        //joystick.povLeft().whileTrue(new ClimbSetPos0(climbV2Subsytem));
+        //joystick.povRight().whileTrue(new ClimbSetPos1(climbV2Subsytem));
 
 
         //Pivot PID commands
