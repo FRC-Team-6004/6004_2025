@@ -56,7 +56,7 @@ public class ClimbV2Sub extends SubsystemBase {
 
         // PID values need tuning for your specific elevator
         encoder = climbMotor.getEncoder();
-        pid = new PIDController(3, 0, 0);
+        pid = new PIDController(1200, 0, 0);
     }
 
     @Override

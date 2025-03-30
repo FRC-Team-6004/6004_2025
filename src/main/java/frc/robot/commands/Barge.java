@@ -37,7 +37,7 @@ public class Barge extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_duration = .4;
+    m_duration = .5;
     // Reset the clock
     m_timer.reset();
   }
